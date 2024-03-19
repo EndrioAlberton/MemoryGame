@@ -12,7 +12,7 @@ const CardContainer = styled.div<{ isFlipped: boolean }>`
 
 interface CardProps {
   id: number;
-  value: number;
+  value: string;
   isFlipped: boolean;
   onClick: (id: number) => void;
 }
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ id, value, isFlipped, onClick }) => {
 
   return (
     <CardContainer isFlipped={isFlipped} onClick={handleClick}>
-      {isFlipped ? value : null} {/* Use null para ocultar o valor quando não estiver virado */}
+      {isFlipped ? value : null}
     </CardContainer>
   );
 };

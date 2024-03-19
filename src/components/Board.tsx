@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import BoardSize from '../types/boardSizes';
 import Card from './Card';
 
-// Interface das propriedades do componente Board
+// Interface representando as propriedades do componente Board
 interface BoardProps {
   size: BoardSize;
   onGameEnd: () => void;
@@ -28,16 +28,16 @@ const generateRandomCards = (totalPairs: number): CardData[] => {
     '🦔'
   ];
 
-    // Cria um array de cards contendo pares de emojis.
-    const cards = emojis.slice(0, totalPairs).flatMap((emoji, index) => [
-        { id: index * 2, value: emoji, isFlipped: false },
-        { id: index * 2 + 1, value: emoji, isFlipped: false }
-    ]);
+  // Cria um array de cards contendo pares de emojis.
+  const cards = emojis.slice(0, totalPairs).flatMap((emoji, index) => [
+    { id: index * 2, value: emoji, isFlipped: false },
+    { id: index * 2 + 1, value: emoji, isFlipped: false }
+  ]);
 
-    // Embaralha os cards aleatoriamente para tornar o jogo mais desafiador.
-    const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
-    return shuffledCards.map((card, index) => ({ ...card, id: index + 1 })); //Id unico
-    };
+  // Embaralha os cards aleatoriamente para tornar o jogo mais desafiador.
+  const shuffledCards = [...cards].sort(() => Math.random() - 0.5);
+  return shuffledCards.map((card, index) => ({ ...card, id: index + 1 })); // ID único
+};
 
 // Estilização do container do tabuleiro
 const BoardContainer = styled.div`
@@ -89,13 +89,13 @@ const Board: React.FC<BoardProps> = ({ size, onGameEnd }) => {
   const [matchesCount, setMatchesCount] = useState<number>(0);
   const [timer, setTimer] = useState<number | null>(null);
 
-// Inicia o temporizador se ainda não estiver em andamento.
-useEffect(() => {
+  // Inicia o temporizador se ainda não estiver em andamento.
+  useEffect(() => {
     if (flippedCardIds.length === 1 && !startTime) {
       setStartTime(new Date());
     }
   }, [flippedCardIds, startTime]);
-  
+
   // Este useEffect é acionado sempre que o conjunto de cartas coincidentes é completo.
   useEffect(() => {
     if (matchedCardIds.length === totalPairs * 2) {
@@ -104,7 +104,7 @@ useEffect(() => {
       alert(`Parabéns! Você completou o jogo em ${moves} movimentos e ${elapsedTime} segundos.`);
     }
   }, [matchedCardIds, totalPairs, onGameEnd, moves, elapsedTime, timer]);
-  
+
   // Este useEffect é acionado para iniciar e atualizar o temporizador do jogo.
   // Calcula o tempo decorrido desde o início do jogo e atualiza o estado correspondente.
   useEffect(() => {
@@ -115,12 +115,12 @@ useEffect(() => {
         setElapsedTime(elapsed);
       }
     }, 1000);
-  
+
     setTimer(timerInterval);
-  
+
     return () => clearInterval(timerInterval);
   }, [startTime]);
-  
+
   // Esta função lida com o clique em um card individual.
   // Altera o estado dos cards conforme necessário com base no clique do jogador.
   const handleCardClick = (id: number) => {
@@ -129,42 +129,43 @@ useEffect(() => {
       const updatedCards = cards.map(card =>
         card.id === id ? { ...card, isFlipped: true } : card
       );
-      setFlippedCardIds([...flippedCardIds, id]); 
-      setCards(updatedCards); 
+      setFlippedCardIds([...flippedCardIds, id]);
+      setCards(updatedCards);
     }
-  
+
     // Verifica se dois cards foram virados.
     if (flippedCardIds.length === 1) {
       const [firstCardId] = flippedCardIds;
       const [firstCard] = cards.filter(card => card.id === firstCardId);
       const [secondCard] = cards.filter(card => card.id === id);
-  
+
       // Verifica se os dois cards virados coincidem.
       if (firstCard && secondCard && firstCard.value === secondCard.value) {
         // Atualiza o estado dos cards correspondentes e a contagem de movimentos.
         setMatchedCardIds([...matchedCardIds, firstCard.id, secondCard.id]);
         setFlippedCardIds([]);
-        setMatchesCount(matchesCount + 1); 
+        setMatchesCount(matchesCount + 1);
       } else {
         // Se os cards não coincidirem, vire-os de volta após um breve intervalo.
         setTimeout(() => {
           const updatedCards = cards.map(card =>
             flippedCardIds.includes(card.id) ? { ...card, isFlipped: false } : card
           );
-          setCards(updatedCards); 
-          setFlippedCardIds([]); 
-        }, 1000); 
+          setCards(updatedCards);
+          setFlippedCardIds([]);
+        }, 1000);
       }
       setMoves(moves + 1); // Incrementa o número total de movimentos.
     }
   };
-    return (
+
+  return (
     <BoardContainer>
       <BoardGrid size={size}>
         {cards.map((card) => (
           <CardContainer
             key={card.id} // Define uma chave única para cada card.
-            onClick={() => handleCardClick(card.id)} 
+            onClick={() => handleCardClick(card.id)}
           >
             <Card
               id={card.id}
@@ -182,7 +183,6 @@ useEffect(() => {
       </StatsContainer>
     </BoardContainer>
   );
-  };
-  
-  export default Board;
-  
+};
+
+export default Board;
