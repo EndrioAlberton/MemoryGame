@@ -8,8 +8,6 @@ const BoardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  padding: 20px;
 `;
 
 // Estilização do grid que contém os cards do tabuleiro
@@ -20,26 +18,29 @@ const BoardGrid = styled.div<{ size: number }>`
   gap: 10px;
   max-width: 800px;
   margin: auto;
-  margin-top: 50px;
 `;
 
 // Estilização do container de cada card
 const CardContainer = styled.div`
-  width: 100px; /* Tamanho padrão do card */
-  height: 100px; /* Tamanho padrão do card */
-  background-color: #000;
+  width: 100px; 
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 2px solid #fff; /* Adiciona borda aos cards */
+  border: 2px solid #eee2d9; 
 `;
 
 // Estilização do container de estatísticas do jogo
 const StatsContainer = styled.div`
-  margin-top: 20px;
-  text-align: center;
   font-family: 'Baloo', cursive;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px; 
+`;
+
+const Paragraph = styled.p`
+  margin-right: 10px; /* Espaço à direita de cada parágrafo */
 `;
 
 // Interface representando as propriedades do componente Board
@@ -170,6 +171,11 @@ const handleCardClick = (id: number) => {
 
   return (
     <BoardContainer>
+      <StatsContainer>
+        <Paragraph>Movimentos: {moves} </Paragraph>
+        <Paragraph> Número de acertos: {matchesCount} </Paragraph>
+        <Paragraph> Tempo decorrido: {elapsedTime} segundos</Paragraph>
+      </StatsContainer>
       <BoardGrid size={size}>
         {cards.map((card) => (
           <CardContainer
@@ -185,11 +191,6 @@ const handleCardClick = (id: number) => {
           </CardContainer>
         ))}
       </BoardGrid>
-      <StatsContainer>
-        <p>Movimentos: {moves}</p>
-        <p>Número de acertos: {matchesCount}</p>
-        <p>Tempo decorrido: {elapsedTime} segundos</p>
-      </StatsContainer>
     </BoardContainer>
   );
 };

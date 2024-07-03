@@ -10,6 +10,9 @@ const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  margin: 0;
+  padding: 0; 
+  background-color: #eee2d9;
 `;
 
 const MainContent = styled.div`

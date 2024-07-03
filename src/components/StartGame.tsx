@@ -3,24 +3,23 @@ import BoardSize from '../types/boardSizes';
 
 const StartGameContainer = styled.div`
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px; /* Aumentei o espaço acima */
   font-family: 'Baloo', cursive;
 `;
 
 const Button = styled.button`
-  margin: 0 10px; 
-  padding: 10px 20px; 
-  border-radius: 8px;
-  border: 1px solid transparent;
-  font-size: 1em;
-  font-weight: 500;
+  margin: 0 10px;
+  padding: 12px 24px; 
+  border-radius: 12px; 
+  font-size: 1.2em; 
+  font-weight: 600; 
   font-family: 'Baloo', cursive;
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: #bfa36d;
+  color: #1a1a1a; 
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
+  transition: background-color 0.25s;
   &:hover {
-    background-color: #646cff;
+    background-color: #8b5a2b;
   }
 `;
 

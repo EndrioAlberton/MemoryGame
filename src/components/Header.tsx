@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
   text-align: center;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  background-color: #8b5a2b; 
+  color: #fff;
+  border-bottom: 2px solid #654321; 
   font-family: 'Baloo', cursive;
-`;
+  width: 100%;
+  `;
 
 const Header = () => {
   return (
