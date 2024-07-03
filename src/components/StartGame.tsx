@@ -4,6 +4,7 @@ import BoardSize from '../types/boardSizes';
 const StartGameContainer = styled.div`
   text-align: center;
   margin-top: 10px;
+  font-family: 'Baloo', cursive;
 `;
 
 const Button = styled.button`
@@ -13,7 +14,7 @@ const Button = styled.button`
   border: 1px solid transparent;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Baloo', cursive;
   background-color: #1a1a1a;
   color: #ffffff;
   cursor: pointer;

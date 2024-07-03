@@ -39,6 +39,7 @@ const CardContainer = styled.div`
 const StatsContainer = styled.div`
   margin-top: 20px;
   text-align: center;
+  font-family: 'Baloo', cursive;
 `;
 
 // Interface representando as propriedades do componente Board

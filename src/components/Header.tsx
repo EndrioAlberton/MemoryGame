@@ -4,6 +4,8 @@ const HeaderContainer = styled.div`
   text-align: center;
   padding: 20px;
   background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  font-family: 'Baloo', cursive;
 `;
 
 const Header = () => {
