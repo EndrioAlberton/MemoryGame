@@ -6,8 +6,16 @@ import Card from './Card';
 // Estilização do container do tabuleiro
 const BoardContainer = styled.div`
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: center;
+  color: #3D2C29;
+  position: relative;
+  top: -3vw;
+
+  @media (max-width: 480px) {
+  top: -20vw;
+  }
 `;
 
 // Estilização do grid que contém os cards do tabuleiro
@@ -37,8 +45,8 @@ const CardContainer = styled.div`
   }
 
   @media (max-width: 480px) {
-    width: 70%; 
-    height: 70%;
+    width: 80%; 
+    height: 80%;
     border: 1px solid #ccc; 
   }
 `;
@@ -49,10 +57,22 @@ const StatsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px; 
+
+  @media (max-width: 480px) {
+    font-size: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+  }
 `;
 
 const Paragraph = styled.p`
   margin-right: 10px; /* Espaço à direita de cada parágrafo */
+
+    @media (max-width: 480px) {
+    margin: 2px;
+  }
 `;
 
 // Interface representando as propriedades do componente Board

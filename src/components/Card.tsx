@@ -16,13 +16,11 @@ const CardContainer = styled.div<{ isFlipped: boolean }>`
   @media (max-width: 768px) {
     width: 80px;
     height: 80px;
-    font-size: 20px;
   }
 
   @media (max-width: 480px) {
-    width: 60px;
-    height: 60px;
-    font-size: 16px;
+    width: 70px;
+    height: 70px;
   }
 `;
 

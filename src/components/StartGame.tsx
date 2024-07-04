@@ -3,8 +3,9 @@ import BoardSize from '../types/boardSizes';
 
 const StartGameContainer = styled.div`
   text-align: center;
-  margin-top: 20px; /* Aumentei o espaço acima */
+  margin-top: 20px;
   font-family: 'Baloo', cursive;
+  color: #3D2C29;
 `;
 
 const Button = styled.button`
