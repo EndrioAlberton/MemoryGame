@@ -22,13 +22,25 @@ const BoardGrid = styled.div<{ size: number }>`
 
 // Estilização do container de cada card
 const CardContainer = styled.div`
-  width: 100px; 
-  height: 100px;
+  width: 100%; 
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 2px solid #eee2d9; 
+  border: 2px solid #eee2d9;
+
+  @media (max-width: 768px) {
+    width: 80%; 
+    height: 80%;
+    border: 1px solid #eee2d9; 
+  }
+
+  @media (max-width: 480px) {
+    width: 70%; 
+    height: 70%;
+    border: 1px solid #ccc; 
+  }
 `;
 
 // Estilização do container de estatísticas do jogo

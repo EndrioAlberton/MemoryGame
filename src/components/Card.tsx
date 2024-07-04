@@ -12,7 +12,20 @@ const CardContainer = styled.div<{ isFlipped: boolean }>`
   cursor: ${({ isFlipped }) => (isFlipped ? 'default' : 'pointer')};
   font-family: 'Baloo', cursive;
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+  }
 `;
+
 
 interface CardProps {
   id: number;
