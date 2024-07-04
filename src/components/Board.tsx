@@ -161,7 +161,7 @@ const handleCardClick = (id: number) => {
   // Verifica se o card já está virado ou já foi correspondido.
   const cardClicked = cards.find(card => card.id === id);
   if (!cardClicked || cardClicked.isFlipped || matchedCardIds.includes(id)) {
-    return alert("Essa carta já encontrou seu par e não pode ser modificada"); // Retorna se o card já estiver virado ou correspondido.
+    return alert("Essa carta já está virada, escolha olha carta!"); // Retorna se o card já estiver virado ou correspondido.
   }
 
   // Verifica se há menos de dois cards virados.
