@@ -11,8 +11,6 @@ const BoardContainer = styled.div`
   align-items: center;
   color: #3D2C29;
   position: relative;
-  top: -3vw;
-
   @media (max-width: 480px) {
   top: -20vw;
   }
