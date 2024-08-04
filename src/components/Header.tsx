@@ -7,11 +7,16 @@ const HeaderContainer = styled.div`
   border-bottom: 2px solid #654321; 
   font-family: 'Baloo', cursive;
   width: 100%;
-  `;
+`;
 
 const Header = () => {
+
+  const handleClick = () => {
+    window.location.href = '/startGame';
+  };
+
   return (
-    <HeaderContainer>
+    <HeaderContainer onClick={handleClick}>
       <h1>Jogo da Memória</h1>
     </HeaderContainer>
   );

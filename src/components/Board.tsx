@@ -113,8 +113,8 @@ const generateRandomCards = (totalPairs: number): CardData[] => {
 const Board: React.FC<BoardProps> = ({ size, onGameEnd }) => {
   const totalPairs = size * size / 2;
   const [cards, setCards] = useState<CardData[]>(generateRandomCards(totalPairs));
-  const [flippedCardIds, setFlippedCardIds] = useState<number[]>([]);
-  const [matchedCardIds, setMatchedCardIds] = useState<number[]>([]);
+  const [flippedCardIds, setFlippedCardIds] = useState<number[]>([]);//Cartas que estão viradas
+  const [matchedCardIds, setMatchedCardIds] = useState<number[]>([]);//cartas que encontraram o par
   const [moves, setMoves] = useState<number>(0);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);

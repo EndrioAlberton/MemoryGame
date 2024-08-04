@@ -16,11 +16,13 @@ const AppContainer = styled.div`
 `;
 
 const MainContent = styled.div`
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media (max-width: 480px) {
+      flex-grow: 1;
+  }
 `;
 
 const App: React.FC = () => {

@@ -13,7 +13,6 @@ const ContainerButton = styled.div`
   justify-content: center;
   margin-top: 20px;
   @media (max-width: 480px) {
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;    
@@ -33,9 +32,24 @@ const Button = styled.button`
   transition: background-color 0.25s;
   &:hover {
     background-color: #8b5a2b;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+
   @media (max-width: 480px) {
-    margin: 10px;
-    background-color: red;
+    &:nth-child(n+2) {
+      background-color: #ccc;
+      opacity: 0.5;;
+      color: #666;
+      &:disabled {
+        color: #666;
+        cursor: not-allowed;
+      }
+    }
   }
 `;
 
@@ -53,8 +67,8 @@ const StartGame: React.FC<StartGameProps> = ({ onSelectSize }) => {
       <h2>Escolha o Tamanho do Jogo:</h2>
       <ContainerButton>
         <Button onClick={() => handleSizeSelection(4)}>4x4</Button>
-        <Button onClick={() => handleSizeSelection(6)}>6x6</Button>
-        <Button onClick={() => handleSizeSelection(8)}>8x8</Button>
+        <Button onClick={() => handleSizeSelection(6)} disabled={window.innerWidth <= 480}>6x6</Button>
+        <Button onClick={() => handleSizeSelection(8)} disabled={window.innerWidth <= 480}>8x8</Button>
       </ContainerButton>
     </StartGameContainer>
   );
