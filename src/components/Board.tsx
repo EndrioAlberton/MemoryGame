@@ -12,7 +12,7 @@ const BoardContainer = styled.div`
   color: #3D2C29;
   position: relative;
   @media (max-width: 480px) {
-  top: -20vw;
+    top: -20vw;
   }
 `;
 
@@ -27,9 +27,9 @@ const BoardGrid = styled.div<{ size: number }>`
 `;
 
 // Estilização do container de cada card
-const CardContainer = styled.div`
-  width: 100%; 
-  height: 100%;
+const CardContainer = styled.div<{ size: number }>`
+  width: ${({ size }) => (size === 4 ? '100px' : size === 6 ? '75px' : '50px')};
+  height: ${({ size }) => (size === 4 ? '100px' : size === 6 ? '75px' : '50px')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,15 +37,15 @@ const CardContainer = styled.div`
   border: 2px solid #eee2d9;
 
   @media (max-width: 768px) {
-    width: 80%; 
-    height: 80%;
-    border: 1px solid #eee2d9; 
+    width: ${({ size }) => (size === 4 ? '80px' : size === 6 ? '60px' : '40px')};
+    height: ${({ size }) => (size === 4 ? '80px' : size === 6 ? '60px' : '40px')};
+    border: 1px solid #eee2d9;
   }
 
   @media (max-width: 480px) {
-    width: 80%; 
-    height: 80%;
-    border: 1px solid #ccc; 
+    width: ${({ size }) => (size === 4 ? '70px' : size === 6 ? '52px' : '35px')};
+    height: ${({ size }) => (size === 4 ? '70px' : size === 6 ? '52px' : '35px')};
+    border: 1px solid #ccc;
   }
 `;
 
@@ -54,21 +54,20 @@ const StatsContainer = styled.div`
   font-family: 'Baloo', cursive;
   display: flex;
   justify-content: space-between;
-  margin: 10px; 
+  margin: 10px;
 
   @media (max-width: 480px) {
     font-size: 26px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
   }
 `;
 
 const Paragraph = styled.p`
-  margin-right: 10px; /* Espaço à direita de cada parágrafo */
+  margin-right: 10px;
 
-    @media (max-width: 480px) {
+  @media (max-width: 480px) {
     margin: 2px;
   }
 `;
@@ -113,8 +112,8 @@ const generateRandomCards = (totalPairs: number): CardData[] => {
 const Board: React.FC<BoardProps> = ({ size, onGameEnd }) => {
   const totalPairs = size * size / 2;
   const [cards, setCards] = useState<CardData[]>(generateRandomCards(totalPairs));
-  const [flippedCardIds, setFlippedCardIds] = useState<number[]>([]);//Cartas que estão viradas
-  const [matchedCardIds, setMatchedCardIds] = useState<number[]>([]);//cartas que encontraram o par
+  const [flippedCardIds, setFlippedCardIds] = useState<number[]>([]); // Cartas que estão viradas
+  const [matchedCardIds, setMatchedCardIds] = useState<number[]>([]); // Cartas que encontraram o par
   const [moves, setMoves] = useState<number>(0);
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -138,7 +137,6 @@ const Board: React.FC<BoardProps> = ({ size, onGameEnd }) => {
   }, [matchedCardIds, totalPairs, onGameEnd, moves, elapsedTime, timer]);
 
   // Este useEffect é acionado para iniciar e atualizar o temporizador do jogo.
-  // Calcula o tempo decorrido desde o início do jogo e atualiza o estado correspondente.
   useEffect(() => {
     const timerInterval = setInterval(() => {
       if (startTime) {
@@ -153,63 +151,61 @@ const Board: React.FC<BoardProps> = ({ size, onGameEnd }) => {
     return () => clearInterval(timerInterval);
   }, [startTime]);
 
-// Esta função lida com o clique em um card individual.
-// Altera o estado dos cards conforme necessário com base no clique do jogador.
-const handleCardClick = (id: number) => {
-  // Verifica se o card já está virado ou já foi correspondido.
-  const cardClicked = cards.find(card => card.id === id);
-  if (!cardClicked || cardClicked.isFlipped || matchedCardIds.includes(id)) {
-    return alert("Essa carta já está virada, escolha olha carta!"); // Retorna se o card já estiver virado ou correspondido.
-  }
-
-  // Verifica se há menos de dois cards virados.
-  if (flippedCardIds.length < 2) {
-    const updatedCards = cards.map(card =>
-      card.id === id ? { ...card, isFlipped: true } : card
-    );
-    setFlippedCardIds([...flippedCardIds, id]);
-    setCards(updatedCards);
-  }
-
-  // Verifica se dois cards foram virados.
-  if (flippedCardIds.length === 1) {
-    const [firstCardId] = flippedCardIds;
-    const firstCard = cards.find(card => card.id === firstCardId);
-    const secondCard = cards.find(card => card.id === id);
-
-    // Verifica se os dois cards virados coincidem.
-    if (firstCard && secondCard && firstCard.value === secondCard.value) {
-      // Atualiza o estado dos cards correspondentes e a contagem de movimentos.
-      setMatchedCardIds([...matchedCardIds, firstCard.id, secondCard.id]);
-      setFlippedCardIds([]);
-      setMatchesCount(matchesCount + 1);
-    } else {
-      // Se os cards não coincidirem, vire-os de volta após um breve intervalo.
-      setTimeout(() => {
-        const updatedCards = cards.map(card =>
-          flippedCardIds.includes(card.id) ? { ...card, isFlipped: false } : card
-        );
-        setCards(updatedCards);
-        setFlippedCardIds([]);
-      }, 1000);
+  // Esta função lida com o clique em um card individual.
+  const handleCardClick = (id: number) => {
+    // Verifica se o card já está virado ou já foi correspondido.
+    const cardClicked = cards.find(card => card.id === id);
+    if (!cardClicked || cardClicked.isFlipped || matchedCardIds.includes(id)) {
+      return alert("Essa carta já está virada, escolha outra carta!"); // Retorna se o card já estiver virado ou correspondido.
     }
-    setMoves(moves + 1); // Incrementa o número total de movimentos.
-  }
-};
 
+    // Verifica se há menos de dois cards virados.
+    if (flippedCardIds.length < 2) {
+      const updatedCards = cards.map(card =>
+        card.id === id ? { ...card, isFlipped: true } : card
+      );
+      setFlippedCardIds([...flippedCardIds, id]);
+      setCards(updatedCards);
+    }
 
+    // Verifica se dois cards foram virados.
+    if (flippedCardIds.length === 1) {
+      const [firstCardId] = flippedCardIds;
+      const firstCard = cards.find(card => card.id === firstCardId);
+      const secondCard = cards.find(card => card.id === id);
+
+      // Verifica se os dois cards virados coincidem.
+      if (firstCard && secondCard && firstCard.value === secondCard.value) {
+        // Atualiza o estado dos cards correspondentes e a contagem de movimentos.
+        setMatchedCardIds([...matchedCardIds, firstCard.id, secondCard.id]);
+        setFlippedCardIds([]);
+        setMatchesCount(matchesCount + 1);
+      } else {
+        // Se os cards não coincidirem, vire-os de volta após um breve intervalo.
+        setTimeout(() => {
+          const updatedCards = cards.map(card =>
+            flippedCardIds.includes(card.id) ? { ...card, isFlipped: false } : card
+          );
+          setCards(updatedCards);
+          setFlippedCardIds([]);
+        }, 1000);
+      }
+      setMoves(moves + 1); // Incrementa o número total de movimentos.
+    }
+  };
 
   return (
     <BoardContainer>
       <StatsContainer>
         <Paragraph>Movimentos: {moves} </Paragraph>
-        <Paragraph> Número de acertos: {matchesCount} </Paragraph>
-        <Paragraph> Tempo decorrido: {elapsedTime} segundos</Paragraph>
+        <Paragraph>Número de acertos: {matchesCount} </Paragraph>
+        <Paragraph>Tempo decorrido: {elapsedTime} segundos</Paragraph>
       </StatsContainer>
       <BoardGrid size={size}>
         {cards.map((card) => (
           <CardContainer
             key={card.id} // Define uma chave única para cada card.
+            size={size}
             onClick={() => handleCardClick(card.id)}
           >
             <Card
@@ -217,6 +213,7 @@ const handleCardClick = (id: number) => {
               value={card.value}
               isFlipped={card.isFlipped}
               onClick={() => handleCardClick(card.id)}
+              size={size} 
             />
           </CardContainer>
         ))}

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-const CardContainer = styled.div<{ isFlipped: boolean }>`
-  width: 100px;
-  height: 100px;
+const CardContainer = styled.div<{ isFlipped: boolean; size: number }>`
+  width: ${({ size }) => (size === 4 ? '100px' : size === 6 ? '75px' : '50px')};
+  height: ${({ size }) => (size === 4 ? '100px' : size === 6 ? '75px' : '50px')};
   background-color: ${({ isFlipped }) => (isFlipped ? '#bfa36d' : '#8b5a2b')}; 
   border: 2px solid #654321; 
   border-radius: 8px; 
@@ -11,17 +11,19 @@ const CardContainer = styled.div<{ isFlipped: boolean }>`
   align-items: center;
   cursor: ${({ isFlipped }) => (isFlipped ? 'default' : 'pointer')};
   font-family: 'Baloo', cursive;
-  font-size: 24px;
+  font-size: ${({ size }) => (size === 4 ? '50px' : size === 6 ? '35px' : '25px')};
 
   @media (max-width: 768px) {
-    width: 80px;
-    height: 80px;
+    width: ${({ size }) => (size === 4 ? '80px' : size === 6 ? '60px' : '40px')};
+    height: ${({ size }) => (size === 4 ? '80px' : size === 6 ? '60px' : '40px')};
+    font-size: ${({ size }) => (size === 4 ? '50px' : size === 6 ? '35px' : '25px')};
   }
 
   @media (max-width: 480px) {
-    width: 70px;
-    height: 70px;
-  }
+    width: ${({ size }) => (size === 4 ? '70px' : size === 6 ? '52px' : '35px')};
+    height: ${({ size }) => (size === 4 ? '70px' : size === 6 ? '52px' : '35px')};
+    font-size: ${({ size }) => (size === 4 ? '50px' : size === 6 ? '35px' : '25px')};
+    }
 `;
 
 
@@ -30,9 +32,10 @@ interface CardProps {
   value: string;
   isFlipped: boolean;
   onClick: (id: number) => void;
+  size: number; // Adicione esta propriedade
 }
 
-const Card: React.FC<CardProps> = ({ id, value, isFlipped, onClick }) => {
+const Card: React.FC<CardProps> = ({ id, value, isFlipped, onClick, size }) => {
   const handleClick = () => {
     if (!isFlipped) {
       onClick(id);
@@ -40,7 +43,7 @@ const Card: React.FC<CardProps> = ({ id, value, isFlipped, onClick }) => {
   };
 
   return (
-    <CardContainer isFlipped={isFlipped} onClick={handleClick}>
+    <CardContainer isFlipped={isFlipped} onClick={handleClick} size={size}>
       {isFlipped ? value : null}
     </CardContainer>
   );
