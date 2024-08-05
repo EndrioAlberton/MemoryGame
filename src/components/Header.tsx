@@ -12,7 +12,7 @@ const HeaderContainer = styled.div`
 const Header = () => {
 
   const handleClick = () => {
-    window.location.href = '/startGame';
+    window.location.href = '';
   };
 
   return (
